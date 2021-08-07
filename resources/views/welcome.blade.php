@@ -3,34 +3,30 @@
 @section('title', 'HDC Events')
 
 @section('content')
-    <h1>Algum título</h1>
-    <img src="{{ asset('img/banner.jpg') }}" alt="Banner">
 
-    {{-- Diretivas do blade e variáveis --}}
-    @if ($nome == "João")
-        <p>O nome é {{ $nome }} e ele tem {{ $idade }} anos e trabalha como {{ $profissao }}</p>
-    @elseif ($nome == "Matheus")
-        <p>O nome é {{ $nome }} e ele tem {{ $idade }} anos e trabalha como {{ $profissao }}</p>
-    @else
-        <p>O nome não é {{ $nome }} e ele tem {{ $idade }} anos e trabalha como {{ $profissao }}</p>
-    @endif
+    <div id="search-container" class="col-md-12">
+        <h1>Busque um evento</h1>
+        <form action="">
+            <input type="text" name="search" id="search" class="form-control" placeholder="Procurar...">
+        </form>
+    </div>
 
-    @foreach ($arr as $item)
-        <ul>
-            <li>{{ $item }}</li>
-        </ul>
-    @endforeach
+    <div id="events-container" class="col-md-12">
+        <h2>Próximos Eventos</h2>
+        <p class="subtitle">Veja os eventos dos próximos dias</p>
+        <div id="cards-container" class="row">
+            @foreach ($events as $event)
+                <div class="card col-md-3">
+                    <img src="{{ asset('img/event_placeholder.jpg') }}" alt="{{ $event->title }}">
+                    <div class="card-body">
+                        <p class="card-date">07/08/2021</p>
+                        <h5 class="card-title">{{ $event->title }}</h5>
+                        <p class="card-participants">X Participantes</p>
+                        <a href="#" class="btn btn-primary">Saber mais</a>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+    </div>
 
-    {{-- Executando código PHP direto na view --}}
-    @php
-        $texto = "PHP direto na View com Blade";
-        echo $texto;
-    @endphp
-
-    <!-- Comentário do HTML: aparece na View-->
-    {{-- Comentário do Blade: Não aparece na View --}}
-
-    @foreach ($nomes as $nome)
-        <p>{{ $loop->index}} -> {{ $nome }}</p>
-    @endforeach
 @endsection
