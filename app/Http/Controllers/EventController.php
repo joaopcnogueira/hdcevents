@@ -27,6 +27,8 @@ class EventController extends Controller
 
         $event->save();
 
-        return redirect()->route('events.index');
+        return redirect()
+                ->route('events.index')
+                ->with('msg', 'Evento criado com sucesso!');
     }
 }
