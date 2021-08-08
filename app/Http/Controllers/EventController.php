@@ -27,6 +27,6 @@ class EventController extends Controller
 
         $event->save();
 
-        return redirect('/');
+        return redirect()->route('events.index');
     }
 }

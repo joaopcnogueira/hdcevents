@@ -22,15 +22,15 @@
         <header>
             <nav class="navbar navbar-expand-lg navbar-light">
                 <div class="collapse navbar-collapse" id="navbar">
-                    <a href="/" class="navbar-brand">
+                    <a href="{{ route('events.index') }}" class="navbar-brand">
                         <img src="{{ asset('img/hdcevents_logo.svg') }}" alt="HDC Events">
                     </a>
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a href="/" class="nav-link">Eventos</a>
+                            <a href="{{ route('events.index') }}" class="nav-link">Eventos</a>
                         </li>
                         <li class="nav-item">
-                            <a href="/events/create" class="nav-link">Criar Evento</a>
+                            <a href="{{ route('events.create') }}" class="nav-link">Criar Evento</a>
                         </li>
                         <li class="nav-item">
                             <a href="/" class="nav-link">Entrar</a>
