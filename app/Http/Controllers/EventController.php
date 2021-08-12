@@ -41,4 +41,12 @@ class EventController extends Controller
                 ->route('events.index')
                 ->with('msg', 'Evento criado com sucesso!');
     }
+
+    public function show($id) {
+        // dd($event);
+        $event = Event::findOrFail($id);
+
+        return view('events.show', compact('event'));
+        
+    }
 }
