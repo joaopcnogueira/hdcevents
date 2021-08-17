@@ -9,7 +9,7 @@ class EventController extends Controller
 {
     public function index() {
         $events = Event::all();
-        return view('welcome', compact('events'));
+        return view('events.index', compact('events'));
     }
 
     public function create() {
@@ -24,6 +24,7 @@ class EventController extends Controller
         $event->city = $request->city;
         $event->private = $request->private;
         $event->description = $request->description;
+        $event->items = $request->items;
 
         // Image Upload
         if($request->hasFile('image') and $request->file('image')->isValid()) {
