@@ -67,4 +67,12 @@ class EventController extends Controller
         return view('events.show', compact('event', 'eventOwner'));
         
     }
+
+	public function dashboard()
+	{
+        $user = auth()->user();
+        $events = $user->events;
+
+        return view('events.dashboard', compact('events'));
+	}
 }
