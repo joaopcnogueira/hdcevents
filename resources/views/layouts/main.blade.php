@@ -32,12 +32,29 @@
                         <li class="nav-item">
                             <a href="{{ route('events.create') }}" class="nav-link">Criar Evento</a>
                         </li>
-                        <li class="nav-item">
-                            <a href="/" class="nav-link">Entrar</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/" class="nav-link">Cadastrar</a>
-                        </li>
+                        @auth
+                            <li class="nav-item">
+                                <a href="{{ route('dashboard') }}" class="nav-link">Meus eventos</a>
+                            </li>    
+                            <li class="nav-item">
+                                <form action="{{ route('logout') }}" method="POST">
+                                    @csrf
+                                    <a href="{{ route('logout') }}" 
+                                        class="nav-link" 
+                                        onclick="event.preventDefault();this.closest('form').submit();">
+                                        Sair
+                                    </a>
+                                </form>
+                            </li>    
+                        @endauth
+                        @guest
+                            <li class="nav-item">
+                                <a href="{{ route('login') }}" class="nav-link">Entrar</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('register') }}" class="nav-link">Cadastrar</a>
+                            </li>
+                        @endguest
                     </ul>
                 </div>
             </nav>
