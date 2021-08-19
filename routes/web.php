@@ -16,9 +16,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [EventController::class, 'index'])->name('events.index');
 Route::get('/events/create', [EventController::class, 'create'])->name('events.create')->middleware('auth');
-Route::post('/events', [EventController::class, 'store'])->name('events.store');
 Route::get('/events/{id}', [EventController::class, 'show'])->name('events.show');
-Route::delete('/events/{id}', [EventController::class, 'destroy'])->name('events.destroy');
+Route::post('/events', [EventController::class, 'store'])->name('events.store')->middleware('auth');
+Route::delete('/events/{id}', [EventController::class, 'destroy'])->name('events.destroy')->middleware('auth');
+Route::get('/events/edit/{id}', [EventController::class, 'edit'])->name('events.edit')->middleware('auth');
+Route::put('/events/update/{id}', [EventController::class, 'update'])->name('events.update')->middleware('auth');
 
 Route::get('/contact', function () {
     return view('contact');

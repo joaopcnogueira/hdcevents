@@ -86,4 +86,34 @@ class EventController extends Controller
                 ->with('msg', 'Evento deletado com sucesso!');
 
 	}
+
+	public function edit($id)
+	{
+		$event = Event::where('id', $id)->first();
+
+        return view('events.edit', compact('event'));
+	}
+
+	public function update(Request $request, $id)
+	{
+        $data = $request->all();
+
+        // Image Upload
+        if($request->hasFile('image') and $request->file('image')->isValid()) {
+            $requestImage = $request->image;
+            $extension = $requestImage->extension();
+            $imageName = md5($requestImage->getClientOriginalName() . strtotime("now")) . '.' . $extension;
+
+            $requestImage->move(public_path('img/events'), $imageName);
+            $data['image'] = $imageName;
+        }
+
+		$event = Event::where('id', $id)->first();
+        $event->update($data);
+
+        return redirect()
+        ->route('dashboard')
+        ->with('msg', 'Evento editado com sucesso!');
+
+	}
 }
