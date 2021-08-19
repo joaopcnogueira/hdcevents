@@ -12,6 +12,7 @@
             <div id="info-container" class="col-md-6">
                 <h1>{{ $event->title }}</h1>
                 <p class="event-city"><ion-icon name="location-outline"></ion-icon> {{ $event->city }}</p>
+                <p class="event-date"><ion-icon name="calendar-outline"></ion-icon> {{ $event->date->format('d/m/Y') }}</p>
                 <p class="events-participants"><ion-icon name="people-outline"></ion-icon> X participantes</p>
                 <p class="event-owner"><ion-icon name="star-outline"></ion-icon> Dono: {{ $eventOwner['name'] }} </p>
                 <a href="#" class="btn btn-primary" id="event-submit">Confirmar Presença</a>
