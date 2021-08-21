@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEventUsersTable extends Migration
+class CreateEventUserTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,7 @@ class CreateEventUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('event_users', function (Blueprint $table) {
-            $table->id();
+        Schema::create('event_user', function (Blueprint $table) {
             $table->foreignId('event_id')
                     ->constrained('events')
                     ->onUpdate('cascade')
@@ -34,6 +33,6 @@ class CreateEventUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('event_users');
+        Schema::dropIfExists('event_user');
     }
 }

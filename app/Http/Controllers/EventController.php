@@ -120,24 +120,22 @@ class EventController extends Controller
 
 	public function join($id)
 	{
-        $user_id = auth()->user()->id;
+        $user = auth()->user();
 
-        $registrou = EventUsers::where('event_id', $id)
-                                    ->where('user_id', $user_id)
-                                    ->first();
+        $exist = $user->eventsAsParticipant->contains($id);
 
-        if (!$registrou) {
-
-            $data = ["event_id" => $id, "user_id" => $user_id];
-            EventUsers::create($data);
-
+        if($exist) {
             return redirect()
                     ->back()
-                    ->with('msg', 'Sua presença está confirmada no evento!');
+                    ->with('msg', 'Você já possui presença confirmada nesse evento!');
         }
+
+        
+        $user->eventsAsParticipant()->attach($id);
+        $event = Event::findOrFail($id);
 
         return redirect()
                 ->back()
-                ->with('msg', 'Você já confirmou a sua presença no evento!');
+                ->with('msg', 'Sua presença está confirmada no evento ' . $event->title);
 	}
 }
