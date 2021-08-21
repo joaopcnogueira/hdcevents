@@ -15,7 +15,12 @@
                 <p class="event-date"><ion-icon name="calendar-outline"></ion-icon> {{ $event->date->format('d/m/Y') }}</p>
                 <p class="events-participants"><ion-icon name="people-outline"></ion-icon> X participantes</p>
                 <p class="event-owner"><ion-icon name="star-outline"></ion-icon> Dono: {{ $eventOwner['name'] }} </p>
-                <a href="#" class="btn btn-primary" id="event-submit">Confirmar Presença</a>
+                <form action="{{ route('events.join', $event->id) }}" method="post">
+                    @csrf
+                    <button class="btn btn-primary" type="submit">Confirmar Presença</button>
+                    {{-- <a href="#" class="btn btn-primary" id="event-submit">Confirmar Presença</a> --}}
+                </form>
+                
                 <h3>O evento conta com:</h3>
                 <ul id="items-list">
                     @foreach ($event->items as $item)

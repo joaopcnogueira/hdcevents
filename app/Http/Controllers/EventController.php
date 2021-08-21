@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
+use App\Models\EventUsers;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -115,5 +116,28 @@ class EventController extends Controller
         ->route('dashboard')
         ->with('msg', 'Evento editado com sucesso!');
 
+	}
+
+	public function join($id)
+	{
+        $user_id = auth()->user()->id;
+
+        $registrou = EventUsers::where('event_id', $id)
+                                    ->where('user_id', $user_id)
+                                    ->first();
+
+        if (!$registrou) {
+
+            $data = ["event_id" => $id, "user_id" => $user_id];
+            EventUsers::create($data);
+
+            return redirect()
+                    ->back()
+                    ->with('msg', 'Sua presença está confirmada no evento!');
+        }
+
+        return redirect()
+                ->back()
+                ->with('msg', 'Você já confirmou a sua presença no evento!');
 	}
 }
