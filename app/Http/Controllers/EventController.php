@@ -73,8 +73,9 @@ class EventController extends Controller
 	{
         $user = auth()->user();
         $events = $user->events;
+        $eventsAsParticipant = $user->eventsAsParticipant;
 
-        return view('events.dashboard', compact('events'));
+        return view('events.dashboard', compact('events', 'eventsAsParticipant'));
 	}
 
 	public function destroy($id)
@@ -90,7 +91,13 @@ class EventController extends Controller
 
 	public function edit($id)
 	{
-		$event = Event::where('id', $id)->first();
+        $user = auth()->user();
+        $event = Event::where('id', $id)->first();
+
+        if($user->id != $event->user->id) {
+            return redirect()
+                    ->route('dashboard');
+        };
 
         return view('events.edit', compact('event'));
 	}
