@@ -65,7 +65,10 @@ class EventController extends Controller
 
         $eventOwner = User::where('id', $event->user_id)->first()->toArray();
 
-        return view('events.show', compact('event', 'eventOwner'));
+        $user = auth()->user();
+        $userHasJoined = $user->eventsAsParticipant->contains($id);
+
+        return view('events.show', compact('event', 'eventOwner', 'userHasJoined'));
         
     }
 
@@ -129,9 +132,9 @@ class EventController extends Controller
 	{
         $user = auth()->user();
 
-        $exist = $user->eventsAsParticipant->contains($id);
+        $userHasJoined = $user->eventsAsParticipant->contains($id);
 
-        if($exist) {
+        if($userHasJoined) {
             return redirect()
                     ->back()
                     ->with('msg', 'Você já possui presença confirmada nesse evento!');
@@ -144,5 +147,17 @@ class EventController extends Controller
         return redirect()
                 ->back()
                 ->with('msg', 'Sua presença está confirmada no evento ' . $event->title);
+	}
+
+	public function leave($id) {
+		$user = auth()->user();
+
+        $user->eventsAsParticipant()->detach($id);
+
+        $event = Event::findOrFail($id);
+
+        return redirect()
+                ->back()
+                ->with('msg', 'Sua presença no evento ' . $event->title . ' foi cancelada.');
 	}
 }

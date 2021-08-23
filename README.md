@@ -7,3 +7,5 @@ Referências:
 ![index01](public/img/app/index01.png)
 ![index02](public/img/app/index02.png)
 ![create-event-form](public/img/app/create-event-form.png)
+![dashboard](public/img/app/dashboard.png)
+
